@@ -1,0 +1,68 @@
+package com.CRUD.BasicCRUD.Service;
+
+import java.util.List;
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.CRUD.BasicCRUD.Entity.Employee;
+import com.CRUD.BasicCRUD.Repository.EmployeeRepo;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService{
+	
+	@Autowired
+	private EmployeeRepo employeeRepo;
+
+	@Override
+	public Employee addEmployee(Employee employee) {
+		
+		return employeeRepo.save(employee);
+	}
+
+	@Override
+	public List<Employee> getAllEmployees(Employee employee) {
+		
+		return employeeRepo.findAll();
+	}
+
+	@Override
+	public Employee getEmpById(Long id) {
+		
+		return employeeRepo.findById(id).get();
+	}
+
+	@Override
+	public void deleteEmployee(Long id) {
+		
+		employeeRepo.deleteById(id);
+	}
+
+	@Override
+	public Employee updateEmployee(Long id, Employee employee) {
+		
+		Employee updateEmp =  employeeRepo.findById(id).get();
+		
+		// Check if the 'name' field of the incoming employee object is not null and not empty
+		if(Objects.nonNull(employee.getName()) && 
+				!"".equalsIgnoreCase(employee.getName())){
+			 // If valid, update the 'name' field of the existing employee object
+			updateEmp.setName(employee.getName());
+		}
+		if(Objects.nonNull(employee.getDepartment()) && 
+				!"".equalsIgnoreCase(employee.getDepartment())) {
+			updateEmp.setDepartment(employee.getDepartment());
+		}
+		if(Objects.nonNull(employee.getAddress()) && 
+				!"".equalsIgnoreCase(employee.getAddress())) {
+			updateEmp.setAddress(employee.getAddress());
+		}
+		return employeeRepo.save(updateEmp);
+	}
+
+	
+
+	
+
+}
