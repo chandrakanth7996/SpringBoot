@@ -1,4 +1,4 @@
-// H2 DATABASE CONFIGURATION
+// H2 DATABASE CONFIGURATION - embedded
 
 To set up an embedded database (H2) in a Spring Boot application, follow these steps:
 
