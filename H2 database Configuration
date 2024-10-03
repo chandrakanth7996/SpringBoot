@@ -1,0 +1,64 @@
+// H2 DATABASE CONFIGURATION
+
+To set up an embedded database (H2) in a Spring Boot application, follow these steps:
+
+### 1. Add H2 Dependency
+
+If you're using Maven, add the following dependency to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+
+For Gradle, add this to your `build.gradle`:
+
+```groovy
+implementation 'com.h2database:h2'
+```
+
+### 2. Configure H2 in Application Properties
+
+In your `src/main/resources/application.properties` file, add the following configuration:
+
+```properties
+# Configure H2 database
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# Enable H2 console for easy access
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Optional: Set the database to be created at startup
+spring.datasource.initialization-mode=always
+```
+
+### 3. Accessing H2 Console
+
+To access the H2 console, start your Spring Boot application and navigate to:
+
+```
+http://localhost:8080/h2-console
+```
+
+Use the following settings to connect:
+
+- **JDBC URL**: `jdbc:h2:mem:testdb`
+- **Username**: `sa`
+- **Password**: (leave blank)
+
+### 4. Run Your Application
+
+Now you can run your Spring Boot application. The embedded H2 database will be initialized, and you can interact with it through the H2 console.
+
+### 5. (Optional) Creating Initial Data
+
+If you want to preload some data, you can create a SQL file named `data.sql` in `src/main/resources` and add your initialization SQL statements there.
+
+That's it! Your Spring Boot application is now configured to use an embedded H2 database.
